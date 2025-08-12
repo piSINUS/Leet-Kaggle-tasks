@@ -44,31 +44,20 @@
 # Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer (similar to C/C++'s atoi function).
 
 class Solution(object):
-    def myAtoi(self, s: str) -> int:
+    def myAtoi(self, s):
         s = s.strip()
         if not s:
             return 0
-        
+        i = 0
         sign = 1
-        index = 0
-        if s[0] in ('-', '+'):
-            if s[0] == '-':
-                sign = -1
-            index += 1
-        
         result = 0
-        while index < len(s) and s[index].isdigit():
-            digit = int(s[index])
+        if s[i] == '-' or s[i] == '+':
+            sign = -1 if s[i] == '-' else 1
+            i += 1
+        while i < len(s) and s[i].isdigit():
+            digit = int(s[i])
+            if result > (2**31 - 1 - digit) // 10:
+                return 2**31 - 1 if sign == 1 else -2**31
             result = result * 10 + digit
-            index += 1
-        
-        result *= sign
-        INT_MAX = 2**31 - 1
-        INT_MIN = -2**31
-        
-        if result < INT_MIN:
-            return INT_MIN
-        if result > INT_MAX:
-            return INT_MAX
-        
-        return result
+            i += 1
+        return sign * result
