@@ -149,17 +149,138 @@
 
 # 14 Longest Common Prefix
 
-class Solution(object):
-    def longestCommonPrewfix(self,strs):
-        prefix= strs[0]
-        for i in range(1, len(strs)):
-             while strs[i].find(prefix) != 0:
-                prefix = prefix[:-1]
-                if not prefix:
-                    return ""
-        return prefix   
+# class Solution(object):
+#     def longestCommonPrewfix(self,strs):
+#         prefix= strs[0]
+#         for i in range(1, len(strs)):
+#              while strs[i].find(prefix) != 0:
+#                 prefix = prefix[:-1]
+#                 if not prefix:
+#                     return ""
+#         return prefix   
 
-solution = Solution()
-test_strs = ["flower", "flow", "flight"]
-result = solution.longestCommonPrewfix(test_strs)
-print(f"The longest common prefix among {test_strs} is: '{result}'")
+# solution = Solution()
+# test_strs = ["flower", "flow", "flight"]
+# result = solution.longestCommonPrewfix(test_strs)
+# print(f"The longest common prefix among {test_strs} is: '{result}'")
+
+# 15. 3Sum
+
+# class Solution(object):
+#     def threeSum(self,nums):
+#         nums.sort()
+#         result = []
+#         for i in range(len(nums) - 2):
+#             if i > 0 and nums[i] == nums[i - 1]:
+#                 continue
+#             left, right = i + 1, len(nums) - 1
+#             while left < right:
+#                 total = nums[i] + nums[left] + nums[right]
+#                 if total < 0:
+#                     left += 1
+#                 elif total > 0:
+#                     right -= 1
+#                 else:
+#                     result.append([nums[i], nums[left], nums[right]])
+#                     while left < right and nums[left] == nums[left + 1]:
+#                         left += 1
+#                     while left < right and nums[right] == nums[right - 1]:
+#                         right -= 1
+#                     left += 1
+#                     right -= 1
+#         return result
+# solution = Solution()
+# test_nums = [-1,0,1,2,-1,-4]
+# result = solution.threeSum(test_nums)
+# print(f"The unique triplets that sum to zero in {test_nums} are: {result}")
+
+# 16. 3Sum Closest
+
+# class Solution(object):
+#     def threeSumClosest(self, nums, target):
+#         nums.sort()
+#         closest_sum = float('inf')
+        
+#         for i in range(len(nums) - 2):
+#             left, right = i + 1, len(nums) - 1
+            
+#             while left < right:
+#                 current_sum = nums[i] + nums[left] + nums[right]
+                
+#                 if abs(current_sum - target) < abs(closest_sum - target):
+#                     closest_sum = current_sum
+                
+#                 if current_sum < target:
+#                     left += 1
+#                 elif current_sum > target:
+#                     right -= 1
+#                 else:
+#                     return current_sum
+        
+#         return closest_sum
+# solution = Solution()
+# test_nums = [-1, 2, 1, -4]
+# test_target = 1
+# result = solution.threeSumClosest(test_nums, test_target)
+# print(f"The closest sum to {test_target} in {test_nums} is: {result}")
+
+# 17. Letter Combinations of a Phone Number
+
+# class Solution(object):
+#     def LetterCombinations(self, digits):
+#         if not digits:
+#             return []
+        
+#         phone_map = {
+#             '2': 'abc', '3': 'def', '4': 'ghi', '5': 'jkl',
+#             '6': 'mno', '7': 'pqrs', '8': 'tuv', '9': 'wxyz'
+#         }
+        
+#         def backtrack(index, path):
+#             if index == len(digits):
+#                 combinations.append("".join(path))
+#                 return
+            
+#             possible_letters = phone_map[digits[index]]
+#             for letter in possible_letters:
+#                 path.append(letter)
+#                 backtrack(index + 1, path)
+#                 path.pop()
+        
+#         combinations = []
+#         backtrack(0, [])
+#         return combinations
+# solution = Solution()
+# test_digits = "2"
+# result = solution.LetterCombinations(test_digits)
+# print(f"The letter combinations for the digits '{test_digits}' are: {result}")
+
+# 21. Merge Two Sorted Lists
+class ListNode(object):
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+class Solution(object):
+    def mergeTwoLists(self, list1, list2):
+        dummy = ListNode(0)
+        current = dummy
+        
+        while list1 and list2:
+            if list1.val < list2.val:
+                current.next = list1
+                list1 = list1.next
+            else:
+                current.next = list2
+                list2 = list2.next
+            current = current.next
+        
+        if list1:
+            current.next = list1
+        elif list2:
+            current.next = list2
+        
+        return dummy.next
+# list1= [1,2,4]
+# list2 = [1,3,4]
+# result = sol.mergeTwoLists(list1,list2)
+
