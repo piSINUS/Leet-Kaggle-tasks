@@ -284,24 +284,44 @@
 # list2 = [1,3,4]
 # result = sol.mergeTwoLists(list1,list2)
 
-class Solution:
-    def isValid(self, s: str) -> bool:
-        mapping = {')': '(', '}': '{', ']': '['}
-        stack = []
+# class Solution:
+#     def isValid(self, s: str) -> bool:
+#         mapping = {')': '(', '}': '{', ']': '['}
+#         stack = []
 
-        for char in s:
-            if char in mapping.values():
-                stack.append(char)
-            elif char in mapping:
-                if not stack or mapping[char] != stack.pop():
-                    return False
-        return not stack
+#         for char in s:
+#             if char in mapping.values():
+#                 stack.append(char)
+#             elif char in mapping:
+#                 if not stack or mapping[char] != stack.pop():
+#                     return False
+#         return not stack
                 
-sol = Solution()
+# sol = Solution()
 
-s = "([])"
-s1 = '(}'
-res = sol.isValid(s)
-print(res)
+# s = "([])"
+# s1 = '(}'
+# res = sol.isValid(s)
+# print(res)
         
+#  26 Remove Duplicates from Sorted Array
 
+nums = [0,0,1,1,1,2,2,3,3,4]
+class Solution(object):
+    def removeDuplicates(self, nums):
+        if not nums:
+            return 0
+        
+        unique_index = 0
+        
+        for i in range(1, len(nums)):
+            if nums[i] != nums[unique_index]:
+                unique_index += 1
+                nums[unique_index] = nums[i]
+        
+        return unique_index + 1
+
+sol = Solution()
+result = sol.removeDuplicates(nums)
+print(f"The number of unique elements is: {result}")
+print(f"The modified array is: {nums[:result]}")
